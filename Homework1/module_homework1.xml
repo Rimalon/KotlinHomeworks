@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_homework1" default="compile.module.homework1">
+  <dirname property="module.homework1.basedir" file="${ant.file.module_homework1}"/>
+  
+  <property name="module.jdk.home.homework1" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.homework1" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.homework1" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.homework1" value="-encoding UTF-8 -source 10 -target 10 ${compiler.args}"/>
+  
+  <property name="homework1.output.dir" value="${module.homework1.basedir}/out/production/Homework1"/>
+  <property name="homework1.testoutput.dir" value="${module.homework1.basedir}/out/test/Homework1"/>
+  
+  <path id="homework1.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="homework1.module.production.classpath">
+    <path refid="${module.jdk.classpath.homework1}"/>
+    <path refid="library.kotlinjavaruntime.classpath"/>
+  </path>
+  
+  <path id="homework1.runtime.production.module.classpath">
+    <pathelement location="${homework1.output.dir}"/>
+    <path refid="library.kotlinjavaruntime.classpath"/>
+  </path>
+  
+  <path id="homework1.module.classpath">
+    <path refid="${module.jdk.classpath.homework1}"/>
+    <pathelement location="${homework1.output.dir}"/>
+    <path refid="library.kotlinjavaruntime.classpath"/>
+  </path>
+  
+  <path id="homework1.runtime.module.classpath">
+    <pathelement location="${homework1.testoutput.dir}"/>
+    <pathelement location="${homework1.output.dir}"/>
+    <path refid="library.kotlinjavaruntime.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.homework1">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.homework1">
+    <patternset refid="excluded.from.module.homework1"/>
+  </patternset>
+  
+  <path id="homework1.module.sourcepath">
+    <dirset dir="${module.homework1.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.homework1" depends="compile.module.homework1.production,compile.module.homework1.tests" description="Compile module Homework1"/>
+  
+  <target name="compile.module.homework1.production" depends="register.custom.compilers" description="Compile module Homework1; production classes">
+    <mkdir dir="${homework1.output.dir}"/>
+    <javac2 destdir="${homework1.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.homework1}/javac">
+      <compilerarg line="${compiler.args.homework1}"/>
+      <bootclasspath refid="homework1.module.bootclasspath"/>
+      <classpath refid="homework1.module.production.classpath"/>
+      <src refid="homework1.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.homework1"/>
+    </javac2>
+    
+    <copy todir="${homework1.output.dir}">
+      <fileset dir="${module.homework1.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.homework1.tests" depends="register.custom.compilers,compile.module.homework1.production" description="compile module Homework1; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.homework1" description="cleanup module">
+    <delete dir="${homework1.output.dir}"/>
+    <delete dir="${homework1.testoutput.dir}"/>
+  </target>
+</project>
