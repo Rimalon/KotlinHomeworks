@@ -1,0 +1,1 @@
+fun containsEvenArr(arr : Array<Array<Int>>) = arr.any { x -> x.all { y -> y % 2 == 0 } }
