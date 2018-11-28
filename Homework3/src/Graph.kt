@@ -49,13 +49,13 @@ class Graph (subjects: Collection<Subject>){
             content[firstPerson]?.add(secondPerson)
             firstPerson.friends.add(secondPerson)
         } else {
-            throw graphsLinkException("Unexpected first argument")
+            throw GraphsLinkException("Unexpected first argument")
         }
         if (content.containsKey(secondPerson)) {
             content[secondPerson]?.add(firstPerson)
             secondPerson.friends.add(firstPerson)
         } else {
-            throw graphsLinkException("Unexpected second argument")
+            throw GraphsLinkException("Unexpected second argument")
         }
     }
 
@@ -64,13 +64,13 @@ class Graph (subjects: Collection<Subject>){
             content[person]?.add(hobby)
             person.hobbies.add(hobby)
         } else {
-            throw graphsLinkException("Unexpected first argument")
+            throw GraphsLinkException("Unexpected first argument")
         }
 
         if (content.containsKey(hobby)) {
             content[hobby]?.add(person)
         } else {
-            throw graphsLinkException("Unexpected second argument")
+            throw GraphsLinkException("Unexpected second argument")
         }
     }
 
@@ -80,13 +80,13 @@ class Graph (subjects: Collection<Subject>){
             content[person]?.add(work)
             person.changeWork(work)
         } else {
-            throw graphsLinkException("Unexpected first argument")
+            throw GraphsLinkException("Unexpected first argument")
         }
         if (content.containsKey(work)){
             content[work]?.add(person)
             content[person.previousWork]?.remove(person)
         } else {
-            throw graphsLinkException("Unexpected second argument")
+            throw GraphsLinkException("Unexpected second argument")
         }
     }
 
@@ -95,13 +95,13 @@ class Graph (subjects: Collection<Subject>){
             content[firstPerson]?.remove(secondPerson)
             firstPerson.friends.remove(secondPerson)
         } else {
-            throw graphsLinkException("Unexpected first argument")
+            throw GraphsLinkException("Unexpected first argument")
         }
         if (content.containsKey(secondPerson)) {
             content[secondPerson]?.remove(firstPerson)
             secondPerson.friends.remove(firstPerson)
         } else {
-            throw graphsLinkException("Unexpected second argument")
+            throw GraphsLinkException("Unexpected second argument")
         }
     }
 
@@ -110,13 +110,13 @@ class Graph (subjects: Collection<Subject>){
             content[person]?.remove(hobby)
             person.hobbies.remove(hobby)
         } else {
-            throw graphsLinkException("Unexpected first argument")
+            throw GraphsLinkException("Unexpected first argument")
         }
 
         if (content.containsKey(hobby)) {
             content[hobby]?.remove(person)
         } else {
-            throw graphsLinkException("Unexpected second argument")
+            throw GraphsLinkException("Unexpected second argument")
         }
     }
 
