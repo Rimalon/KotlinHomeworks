@@ -9,15 +9,18 @@ class Person (name: String,
               _familyStatus: FamilyStatus = FamilyStatus.SINGLE,
               val friends: MutableList<Person> = mutableListOf(),
               val hobbies: MutableList<Hobby> = mutableListOf(),
-              _work: Work = Work(),
-              _previousWork: Work = Work()) : Subject(name){
+              val works: MutableList<Work> = mutableListOf(Work(), Work())) : Subject(name){
+
     var familyStatus = _familyStatus
         private set(value) {field = value}
 
-    var work = _work
-        private set(value) {field = value}
+    var work = works[1]
+        private set(value) {
+            field = value
+            works.add(value)
+        }
 
-    var previousWork = _previousWork
+    var previousWork = works[0]
         private set(value) {field = value}
 
     fun getInfo() : String{
@@ -36,7 +39,9 @@ class Person (name: String,
         for (hobby in hobbies){
             result.append("${hobby.name} ")
         }
-        result.append("\nprevious work: ${previousWork.name}\ncurrent work: ${work.name}\n")
+        for (w in works){
+            result.append("\nwork #${works.indexOf(w)}: ${w.name}")
+        }
         return result.toString()
     }
 

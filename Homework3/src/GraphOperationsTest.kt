@@ -21,8 +21,8 @@ internal class Task_1KtTest {
                 FamilyStatus.SINGLE,
                 mutableListOf(),
                 mutableListOf(piano,guitar),
-                gazprom,
-                sberbank)
+                mutableListOf(sberbank,
+                gazprom))
         val slava = Person("Slava",
                 27,
                 "Ligovskiy 78",
@@ -30,8 +30,8 @@ internal class Task_1KtTest {
                 FamilyStatus.MARRIED,
                 mutableListOf(),
                 mutableListOf(guitar,drawing),
-                yandex,
-                gazprom)
+                mutableListOf(gazprom,
+                yandex))
         val stepan = Person("Stepan",
                 18,
                 "Botanicheskaya 70",
@@ -39,17 +39,17 @@ internal class Task_1KtTest {
                 FamilyStatus.SINGLE,
                 mutableListOf(),
                 mutableListOf(),
-                mcDonadls,
-                gazprom)
+                mutableListOf(gazprom,
+                mcDonadls))
         val fullGraph = Graph(arrayListOf(yandex,gazprom,sberbank,mcDonadls,guitar,piano,drawing,petya,slava,stepan))
         assertTrue(fullGraph.content[guitar]!!.contains(petya))
         assertTrue(fullGraph.content[guitar]!!.contains(slava))
         assertTrue(fullGraph.content[drawing]!!.contains(slava))
         assertTrue(fullGraph.content[gazprom]!!.contains(stepan))
         val graph1 = Graph(arrayListOf(petya,slava,stepan,mcDonadls,gazprom,guitar,yandex))
-        graph1.addLink(stepan,slava)
-        graph1.addLink(stepan,guitar)
-        graph1.addLink(stepan,yandex)
+        graph1.changeLink(stepan,slava,OperationType.ADD)
+        graph1.changeLink(stepan,guitar,OperationType.ADD)
+        graph1.changeLink(stepan,yandex)
         assertTrue(stepan.friends.contains(slava))
         assertTrue(stepan.hobbies.contains(guitar))
         assertTrue(stepan.previousWork == mcDonadls)
@@ -59,8 +59,8 @@ internal class Task_1KtTest {
         assertTrue(graph1.content[stepan]!!.contains(mcDonadls))
         assertTrue(graph1.content[stepan]!!.contains(yandex))
         assertFalse(graph1.content[stepan]!!.contains(gazprom))
-        graph1.removeLink(stepan,guitar)
-        graph1.removeLink(stepan,slava)
+        graph1.changeLink(stepan,guitar,OperationType.REMOVE)
+        graph1.changeLink(stepan,slava,OperationType.REMOVE)
         assertFalse(stepan.friends.contains(slava))
         assertFalse(stepan.hobbies.contains(guitar))
         assertFalse(graph1.content[stepan]!!.contains(slava))
